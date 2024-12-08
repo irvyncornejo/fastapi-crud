@@ -113,7 +113,7 @@ Este proyecto utiliza como framework [FastAPI](https://fastapi.tiangolo.com/), e
     * Requiere autenticación con role admin
         - Por default se tiene un usuario admin, revisar variables de entorno
     * Método: POST
-    * Path: [api/v2/me](http://localhost:8000/docs#/Admins/create_user_admin_admins_post)
+    * Path: [api/v2/admins](http://localhost:8000/docs#/Admins/create_user_admin_admins_post)
 
 ## Test
 Se tienen algunos casos cubiertos en las pruebas
