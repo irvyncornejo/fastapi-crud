@@ -1,0 +1,5 @@
+.env
+env/
+venv/
+.pytest_cache/
+.pytest/*
