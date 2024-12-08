@@ -18,22 +18,23 @@ class EmailService:
         email_receiver: str,
         template_id: int,
         template_data: Dict[str, any]
-    )->int:
+    )->bool:
         try:
-            response = self._http_service.post(
-                url=self._base_url_api,
-                headers=self._headers,
-                json={  
-                    "to":[  
-                        {  
-                            "email":email_receiver
-                        }
-                    ],
-                    "templateId": template_id,
-                    "params": template_data
-                }
-            )
-            log.info(response)
+            if SETTINGS.api_key_brevo:
+                response = self._http_service.post(
+                    url=self._base_url_api,
+                    headers=self._headers,
+                    json={  
+                        'to':[  
+                            {  
+                                'email':email_receiver
+                            }
+                        ],
+                        'templateId': template_id,
+                        'params': template_data
+                    }
+                )
+                log.info(response.json())
 
         except Exception as e:
             log.error(f'Error en el envio de corre {e}')

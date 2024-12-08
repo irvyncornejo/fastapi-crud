@@ -34,5 +34,8 @@ class UserRepository(MongoRepository):
 
         return user
 
-    def delete(self, id:str):
-        pass
+    def delete_user(self, id:ObjectId):
+        collection = self._get_collection()
+        response = collection.delete_one({'_id': id})
+        return response.deleted_count
+

@@ -17,6 +17,13 @@ class ApplicationUser:
     def __init__(self, db: UserRepository)->None:
         self._db = db
 
+    def _convert_id(self, id:str)->ObjectId:
+        try:
+            return ObjectId(id)
+
+        except Exception as e:
+            raise HTTPException(400, 'Error en la solicitud')
+
     def _create_access_token(self, user, days=1):
         data = {
             'user_id': str(user['_id']),
@@ -60,11 +67,11 @@ class ApplicationUser:
 
     def retrieve_user_by_id(self, id:str):
         try:
-            object_id = ObjectId(id)
+            usr_id = self._convert_id(id)
         except InvalidId:
             raise HTTPException(400, 'Error en la solicitud')
 
-        user = self._db.retrieve_user_by_id(object_id)
+        user = self._db.retrieve_user_by_id(usr_id)
 
         if not user:
             raise HTTPException(404, 'Usuario no encontrado')
@@ -78,15 +85,16 @@ class ApplicationUser:
             exists_user = self._db.retrieve_user_by_email(data['email'])
             if exists_user and str(exists_user['_id']) != id:
                 raise HTTPException(404, 'No se puede actualizar el email')
-
-        return self._db.update_user(ObjectId(id), data)
+        usr_id = self._convert_id(id)
+        return self._db.update_user(usr_id, data)
 
     def soft_delete_user(self, id:str):
         data = {
             'delete': True,
             'deleted_at': datetime.now()
         }
-        _ = self._db.update_user(ObjectId(id), data)
+        usr_id = self._convert_id(id)
+        _ = self._db.update_user(usr_id, data)
 
     def authenticate_user(self, username:str, password:str):
         user = self._db.retrieve_user_by_email(username)
@@ -107,7 +115,13 @@ class ApplicationUser:
         except Exception as e:
             log.error(f'Error autenticado usuario{e}')
 
-
         return {
             'access_token': self._create_access_token(user)
         }
+
+    def delete(self, id:str):
+        usr_id = self._convert_id(id)
+        delete = self._db.delete_user(usr_id)
+        if not delete:
+            raise HTTPException(400, 'El usuario no existe')
+

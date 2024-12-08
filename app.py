@@ -11,7 +11,8 @@ from settings import log, SETTINGS
 @asynccontextmanager
 async def startup(app: FastAPI):
     log.info('Iniciando base...')
-    db = UserRepository(SETTINGS.users_db_name, SETTINGS.users_colecction_name)
+    db_name = 'test' if SETTINGS.env == 'TEST' else SETTINGS.db_name
+    db = UserRepository(db_name, SETTINGS.users_colecction_name)
     db.start_db()
 
     try:
@@ -29,10 +30,6 @@ async def startup(app: FastAPI):
 
     yield
 
-@asynccontextmanager
-async def shutdown(app: FastAPI):
-    log.info('Cerrando')
-    yield
 
 
 app = FastAPI(

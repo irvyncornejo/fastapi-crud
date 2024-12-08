@@ -4,9 +4,10 @@ from parameterized import parameterized
 from faker import Faker
 
 from .config_client import get_token, client
+from settings import SETTINGS
 
 faker = Faker()
-ADMIN_TEST = {"username": "admin@bp.com", "password": "56er%hji90G"}
+ADMIN_TEST = {"username": SETTINGS.admin_email, "password": SETTINGS.admin_password}
 
 class TestUsersApi(unittest.TestCase):
     def __init__(self, *args, **kwargs):
@@ -32,7 +33,7 @@ class TestUsersApi(unittest.TestCase):
         [{  
             "email": faker.email(),
             "full_name": faker.name(),
-            "password": faker.password(),
+            "password": '56FR0gh',
             "role": "films"
         }, 201],
     ])
@@ -45,8 +46,8 @@ class TestUsersApi(unittest.TestCase):
             headers={'Bearer': self.admin_token['access_token']}
         )
         print(response)
-        assert(response.status_code == 201)
+        assert(response.status_code == status_code)
     
     @classmethod
     def tearDownClass(cls):
-        print('Cerrando')
+        pass

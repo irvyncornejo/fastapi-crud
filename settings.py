@@ -11,7 +11,7 @@ class ApiSettings(BaseSettings):
     api_key_brevo:str = ''
     api_service_url:str = ''
     secret_key:str = ''
-    users_db_name:str = ''
+    db_name:str = ''
     users_colecction_name:str=''
     admin_email:str=''
     admin_password:str=''

@@ -66,6 +66,20 @@ class UserForm(BaseModel):
             }
         }
 
+class AdminUserForm(UserForm):
+    role:str = 'admin'
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "full_name": "Luis López",
+                "email": "luis@gmail.com",
+                "role": 'admin',
+                "password": '#1979ER'
+            }
+        }
+
+
 class UserUpdate(BaseModel):
     full_name: Union[str, None] = None
     email: Union[EmailStr, None] = None
