@@ -41,7 +41,7 @@ class TestUsersApi(unittest.TestCase):
     def test_create_user(self, data, status_code):
         print(data)
         response = client.post(
-            'api/users',
+            'api/v1/users',
             json=data,
             headers={'Bearer': self.admin_token['access_token']}
         )

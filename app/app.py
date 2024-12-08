@@ -38,7 +38,8 @@ app = FastAPI(
     title='Creación de usuarios',
     description='Api con el objetivo de tener un CRUD de usuarios con FastAPI y MongoDB',
     version='1',
-    lifespan=startup
+    lifespan=startup,
+    root_path='/api/v1'
 )
 
 origins = ['*']
@@ -50,6 +51,5 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-api = APIRouter(prefix='/api')
-api.include_router(user)
-app.include_router(api)
+
+app.include_router(user)

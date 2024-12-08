@@ -8,7 +8,7 @@ client = TestClient(app)
 def get_token(
     username: str,
     password: str,
-    token_endpoint: str = 'api/auth'
+    token_endpoint: str = 'api/v1/auth'
 ):
     return client.post(
         url=token_endpoint,

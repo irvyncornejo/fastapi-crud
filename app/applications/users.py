@@ -10,7 +10,7 @@ from models.users import UserForm, User
 from infrastructure.repositories.user_repository import UserRepository
 from settings import SETTINGS, log
 
-oauth2_schema = OAuth2PasswordBearer(tokenUrl='api/auth')
+oauth2_schema = OAuth2PasswordBearer(tokenUrl='api/v1/auth')
 
 
 class ApplicationUser:

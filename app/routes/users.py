@@ -13,7 +13,7 @@ from . import permission_exception
 from settings import SETTINGS
 from infrastructure.email_notifications import EmailService
 
-oauth2_schema = OAuth2PasswordBearer(tokenUrl='api/auth')
+oauth2_schema = OAuth2PasswordBearer(tokenUrl='api/v1/auth')
 db_name = 'test' if SETTINGS.env == 'TEST' else SETTINGS.db_name
 application_users = ApplicationUser(db=UserRepository(db_name, 'users'))
 api_provider = ApiProvider()
