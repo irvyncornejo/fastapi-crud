@@ -3,3 +3,4 @@ env/
 venv/
 .pytest_cache/
 .pytest/*
+app/.env
