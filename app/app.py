@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi import APIRouter
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
 
 from routes.users import user
 from applications.users import ApplicationUser
@@ -38,6 +39,15 @@ app = FastAPI(
     description='Api con el objetivo de tener un CRUD de usuarios con FastAPI y MongoDB',
     version='1',
     lifespan=startup
+)
+
+origins = ['*']
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 api = APIRouter(prefix='/api')

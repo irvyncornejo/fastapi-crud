@@ -3,7 +3,7 @@ import unittest
 from parameterized import parameterized
 from faker import Faker
 
-from .config_client import get_token, client
+from .config_client import client, get_token
 from settings import SETTINGS
 
 faker = Faker()
